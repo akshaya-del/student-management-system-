@@ -1,0 +1,800 @@
+<html>
+<head>
+    <title>Smart Campus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f7fa;
+            color: #1f2937;
+        }
+        .navbar {
+            background-color: #1e3a5f;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .navbar a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .navbar a:hover {
+            color: #f4a259;
+        }
+
+        /* every "page" is hidden by default, only the active one shows */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* ---------- HOME PAGE ---------- */
+        .hero {
+            background-color: #3b82c4;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: 36px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #f4a259;
+            color: #1e3a5f;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+        }
+        .card {
+            background-color: white;
+            border-top: 4px solid #f4a259;
+            border-radius: 8px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* ---------- LOGIN / REGISTER PAGES ---------- */
+        .form-box {
+            background-color: white;
+            width: 320px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 8px;
+            border-top: 5px solid #f4a259;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .form-box h2 {
+            text-align: center;
+            color: #1e3a5f;
+        }
+        .form-box label {
+            font-weight: bold;
+            color: #1e3a5f;
+        }
+        .form-box input {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 16px 0;
+            border: 1px solid #dfe4ea;
+            border-radius: 5px;
+        }
+        .full-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-navy {
+            background-color: #1e3a5f;
+            color: white;
+        }
+        .btn-navy:hover {
+            background-color: #14263f;
+        }
+        .btn-gold {
+            background-color: #f4a259;
+            color: #1e3a5f;
+        }
+        .btn-gold:hover {
+            background-color: #e08a34;
+        }
+        #loginMsg, #registerMsg {
+            text-align: center;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        /* ---------- DASHBOARD PAGE ---------- */
+        .header {
+            background-color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #dfe4ea;
+        }
+        .logout-btn {
+            background-color: #d64545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .panel {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .panel h3 {
+            color: #1e3a5f;
+            border-bottom: 2px solid #f4a259;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .student-form input {
+            padding: 8px;
+            margin: 5px 5px 5px 0;
+            border: 1px solid #dfe4ea;
+            border-radius: 5px;
+        }
+        .btn-del {
+            background-color: #d64545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 13px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th {
+            background-color: #1e3a5f;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #dfe4ea;
+        }
+
+        /* ===================================================
+           CONTINUATION OF STYLES - Polish & Responsiveness
+        =================================================== */
+
+        /* Smooth transitions on anything that changes state */
+        a, button, input, .card, .btn, .full-btn {
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Highlight input boxes when clicked/focused - helps users see where they're typing */
+        input:focus {
+            outline: none;
+            border-color: #3b82c4;
+            box-shadow: 0 0 0 3px rgba(59, 130, 196, 0.2);
+        }
+
+        /* Lift feature cards slightly on hover - Home page */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+        }
+
+        /* Button press effect - feels more "clickable" */
+        .btn:active, .full-btn:active, .btn-del:active {
+            transform: scale(0.97);
+        }
+
+        /* Highlight table rows when hovering, so it's easy to scan */
+        tbody tr:hover {
+            background-color: #f0f4f9;
+        }
+
+        /* Delete button gets darker on hover for clear feedback */
+        .btn-del:hover {
+            background-color: #b83a3a;
+        }
+
+        /* Style the file upload / select dropdown consistently with other inputs */
+        select, input[type="file"] {
+            padding: 8px;
+            border: 1px solid #dfe4ea;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        /* Give the whole page a little breathing room on very wide screens */
+        .container, .features {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ---------- RESPONSIVE DESIGN (for tablets & phones) ---------- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .navbar a {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
+            .form-box {
+                width: 90%;
+                margin: 30px auto;
+            }
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+            th {
+                display: none; /* hide table headers on small screens */
+            }
+            td {
+                display: flex;
+                justify-content: space-between;
+                padding: 8px 12px;
+                border-bottom: 1px solid #eee;
+            }
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #1e3a5f;
+            }
+        }
+
+        /* Small screens - stack feature cards vertically for easier reading */
+        @media (max-width: 480px) {
+            .card {
+                width: 90%;
+            }
+        }
+
+        /* ===================================================
+           COURSE ENROLLMENT STYLES
+        =================================================== */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 10px;
+        }
+        .course-card {
+            background-color: white;
+            border: 2px solid #dfe4ea;
+            border-radius: 8px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .course-card:hover {
+            border-color: #3b82c4;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .course-card.selected {
+            border-color: #f4a259;
+            background-color: #fff6ec;
+        }
+        .course-card .course-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+        .course-card h4 {
+            color: #1e3a5f;
+            margin-bottom: 4px;
+        }
+        .course-card p {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        .enroll-btn {
+            margin-top: 16px;
+            padding: 10px 24px;
+            background-color: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .enroll-btn:hover {
+            background-color: #14263f;
+        }
+        .enroll-btn:disabled {
+            background-color: #a9b4c0;
+            cursor: not-allowed;
+        }
+        .enrolled-list {
+            list-style: none;
+            margin-top: 14px;
+        }
+        .enrolled-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f7fa;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: #e4f6ec;
+            color: #2e9e5b;
+        }
+        #enrollMsg {
+            text-align: center;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR (always visible) ===== -->
+    <div class="navbar">
+        <div><b>Smart Campus</b></div>
+        <div>
+            <a onclick="showPage('homePage')">Home</a>
+            <a onclick="showPage('loginPage')">Login</a>
+            <a onclick="showPage('registerPage')">Register</a>
+            <a onclick="showPage('dashboardPage')">Dashboard</a>
+        </div>
+    </div>
+
+    <!-- ===== HOME PAGE ===== -->
+    <div id="homePage" class="page active">
+        <div class="hero">
+            <h1>Welcome to Smart Campus</h1>
+            <p>Add, view, edit, and search student records - all in one place.</p>
+            <button class="btn" onclick="showPage('registerPage')">Get Started</button>
+        </div>
+        <div class="features">
+            <div class="card"><h3>Add Records</h3><p>Add new student details easily.</p></div>
+            <div class="card"><h3>View Records</h3><p>See all students in a table.</p></div>
+            <div class="card"><h3>Edit Records</h3><p>Update details anytime.</p></div>
+            <div class="card"><h3>Search Records</h3><p>Find students instantly.</p></div>
+        </div>
+    </div>
+
+    <!-- ===== LOGIN PAGE ===== -->
+    <div id="loginPage" class="page">
+        <div class="form-box">
+            <h2>Login</h2>
+            <div id="loginMsg"></div>
+            <form onsubmit="doLogin(event)">
+                <label>Username:</label>
+                <input type="text" id="loginUsername" placeholder="Enter username">
+
+                <label>Password:</label>
+                <input type="password" id="loginPassword" placeholder="Enter password">
+
+                <button class="full-btn btn-navy" type="submit">Login</button>
+            </form>
+            <p style="text-align:center; margin-top:10px;">
+                No account? <a onclick="showPage('registerPage')">Register here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== REGISTER PAGE ===== -->
+    <div id="registerPage" class="page">
+        <div class="form-box">
+            <h2>Register</h2>
+            <div id="registerMsg"></div>
+            <form onsubmit="doRegister(event)">
+                <label>Full Name:</label>
+                <input type="text" id="regName" placeholder="Enter your name">
+
+                <label>Email:</label>
+                <input type="email" id="regEmail" placeholder="Enter your email">
+
+                <label>Username:</label>
+                <input type="text" id="regUsername" placeholder="Choose a username">
+
+                <label>Password:</label>
+                <input type="password" id="regPassword" placeholder="Minimum 6 characters">
+
+                <label>Confirm Password:</label>
+                <input type="password" id="regConfirmPassword" placeholder="Re-enter password">
+
+                <button class="full-btn btn-gold" type="submit">Register</button>
+            </form>
+            <p style="text-align:center; margin-top:10px;">
+                Already have an account? <a onclick="showPage('loginPage')">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== DASHBOARD PAGE ===== -->
+    <div id="dashboardPage" class="page">
+        <div class="header">
+            <h2>Welcome, <span id="welcomeUser" style="color:#3b82c4;">Student</span></h2>
+            <button class="logout-btn" onclick="doLogout()">Logout</button>
+        </div>
+
+        <div class="container">
+            <div class="panel">
+                <h3>Add Student</h3>
+                <form class="student-form" onsubmit="addStudent(event)">
+                    <input type="text" id="stuName" placeholder="Name">
+                    <input type="text" id="stuRoll" placeholder="Roll Number">
+                    <input type="text" id="stuCourse" placeholder="Course">
+                    <input type="email" id="stuEmail" placeholder="Email">
+                    <button class="btn" type="submit">Save Student</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Student Records</h3>
+                <input type="text" id="searchInput" placeholder="Search..." onkeyup="renderStudents()" style="padding:8px; width:250px; margin-bottom:10px; border:1px solid #dfe4ea; border-radius:5px;">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Roll No.</th>
+                        <th>Course</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody id="studentTableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- ===== COURSE ENROLLMENT PANEL ===== -->
+            <div class="panel">
+                <h3>Enroll in a Course</h3>
+                <p style="color:#6b7280; margin-bottom:10px;">Select a course below, then click Enroll.</p>
+
+                <div class="course-grid" id="courseGrid">
+                    <div class="course-card" data-course="Java" onclick="selectCourse('Java')">
+                        <div class="course-icon">☕</div>
+                        <h4>Java</h4>
+                        <p>Object-oriented programming fundamentals</p>
+                    </div>
+                    <div class="course-card" data-course="Python" onclick="selectCourse('Python')">
+                        <div class="course-icon">🐍</div>
+                        <h4>Python</h4>
+                        <p>Beginner-friendly, versatile language</p>
+                    </div>
+                    <div class="course-card" data-course="Full Stack" onclick="selectCourse('Full Stack')">
+                        <div class="course-icon">💻</div>
+                        <h4>Full Stack</h4>
+                        <p>Frontend + backend web development</p>
+                    </div>
+                    <div class="course-card" data-course="Data Science" onclick="selectCourse('Data Science')">
+                        <div class="course-icon">📊</div>
+                        <h4>Data Science</h4>
+                        <p>Data analysis, statistics, and ML basics</p>
+                    </div>
+                </div>
+
+                <div style="text-align:center;">
+                    <button class="enroll-btn" id="enrollBtn" onclick="enrollInCourse()" disabled>Enroll</button>
+                </div>
+
+                <div id="enrollMsg"></div>
+
+                <h4 style="margin-top:24px; color:#1e3a5f;">Your Enrolled Courses</h4>
+                <ul class="enrolled-list" id="enrolledList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---------- PAGE SWITCHING ----------
+        function showPage(pageId) {
+            // if trying to open dashboard without logging in, send to login instead
+            if (pageId === "dashboardPage") {
+                var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+                if (!user) {
+                    pageId = "loginPage";
+                } else {
+                    document.getElementById("welcomeUser").innerHTML = user.name;
+                    renderStudents();
+                    renderEnrollments();
+                }
+            }
+
+            var pages = document.getElementsByClassName("page");
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove("active");
+            }
+            document.getElementById(pageId).classList.add("active");
+        }
+
+        // ---------- REGISTER ----------
+        function doRegister(e) {
+            e.preventDefault();
+            var name = document.getElementById("regName").value;
+            var email = document.getElementById("regEmail").value;
+            var username = document.getElementById("regUsername").value;
+            var password = document.getElementById("regPassword").value;
+            var confirmPassword = document.getElementById("regConfirmPassword").value;
+            var msg = document.getElementById("registerMsg");
+
+            function showError(text) {
+                msg.style.display = "block";
+                msg.style.backgroundColor = "#fbe9e9";
+                msg.style.color = "#d64545";
+                msg.innerHTML = text;
+            }
+
+            if (!name || !email || !username || !password) {
+                showError("Please fill in all fields.");
+                return;
+            }
+            if (password.length < 6) {
+                showError("Password must be at least 6 characters.");
+                return;
+            }
+            if (password !== confirmPassword) {
+                showError("Passwords do not match.");
+                return;
+            }
+
+            var users = JSON.parse(localStorage.getItem("scUsers")) || [];
+            var exists = users.some(function(u) { return u.username === username; });
+            if (exists) {
+                showError("That username is already taken.");
+                return;
+            }
+
+            users.push({ name: name, email: email, username: username, password: password });
+            localStorage.setItem("scUsers", JSON.stringify(users));
+
+            msg.style.display = "block";
+            msg.style.backgroundColor = "#e4f6ec";
+            msg.style.color = "#2e9e5b";
+            msg.innerHTML = "Account created! Redirecting to login...";
+
+            setTimeout(function() {
+                showPage("loginPage");
+                msg.style.display = "none";
+            }, 1200);
+        }
+
+        // ---------- LOGIN ----------
+        function doLogin(e) {
+            e.preventDefault();
+            var username = document.getElementById("loginUsername").value;
+            var password = document.getElementById("loginPassword").value;
+            var msg = document.getElementById("loginMsg");
+
+            var users = JSON.parse(localStorage.getItem("scUsers")) || [];
+            var found = users.find(function(u) {
+                return u.username === username && u.password === password;
+            });
+
+            if (!found) {
+                msg.style.display = "block";
+                msg.style.backgroundColor = "#fbe9e9";
+                msg.style.color = "#d64545";
+                msg.innerHTML = "Invalid username or password.";
+                return;
+            }
+
+            localStorage.setItem("scCurrentUser", JSON.stringify(found));
+            msg.style.display = "block";
+            msg.style.backgroundColor = "#e4f6ec";
+            msg.style.color = "#2e9e5b";
+            msg.innerHTML = "Login successful! Redirecting...";
+
+            setTimeout(function() {
+                msg.style.display = "none";
+                showPage("dashboardPage");
+            }, 800);
+        }
+
+        // ---------- LOGOUT ----------
+        function doLogout() {
+            localStorage.removeItem("scCurrentUser");
+            showPage("loginPage");
+        }
+
+        // ---------- COURSE ENROLLMENT ----------
+        var selectedCourse = null; // remembers which course card is currently clicked
+
+        // Highlight the clicked course card and enable the Enroll button
+        function selectCourse(courseName) {
+            selectedCourse = courseName;
+
+            // remove "selected" style from every card, then add it only to the clicked one
+            var cards = document.getElementsByClassName("course-card");
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].classList.remove("selected");
+            }
+            var clickedCard = document.querySelector('[data-course="' + courseName + '"]');
+            clickedCard.classList.add("selected");
+
+            document.getElementById("enrollBtn").disabled = false;
+        }
+
+        // Get all enrollments (an array of { username, course } objects) from storage
+        function getEnrollments() {
+            return JSON.parse(localStorage.getItem("scEnrollments")) || [];
+        }
+        function saveEnrollments(list) {
+            localStorage.setItem("scEnrollments", JSON.stringify(list));
+        }
+
+        // Enroll the current user into the currently selected course
+        function enrollInCourse() {
+            var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+            var msg = document.getElementById("enrollMsg");
+
+            if (!selectedCourse) {
+                return;
+            }
+
+            var enrollments = getEnrollments();
+
+            // check the student isn't already enrolled in this exact course
+            var alreadyEnrolled = enrollments.some(function(en) {
+                return en.username === user.username && en.course === selectedCourse;
+            });
+
+            if (alreadyEnrolled) {
+                msg.style.display = "block";
+                msg.style.backgroundColor = "#fbe9e9";
+                msg.style.color = "#d64545";
+                msg.innerHTML = "You are already enrolled in " + selectedCourse + ".";
+                return;
+            }
+
+            enrollments.push({ username: user.username, course: selectedCourse });
+            saveEnrollments(enrollments);
+
+            msg.style.display = "block";
+            msg.style.backgroundColor = "#e4f6ec";
+            msg.style.color = "#2e9e5b";
+            msg.innerHTML = "Successfully enrolled in " + selectedCourse + "!";
+
+            renderEnrollments();
+        }
+
+        // Remove the student from a course they're enrolled in
+        function unenrollCourse(courseName) {
+            if (!confirm("Unenroll from " + courseName + "?")) return;
+
+            var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+            var enrollments = getEnrollments().filter(function(en) {
+                return !(en.username === user.username && en.course === courseName);
+            });
+            saveEnrollments(enrollments);
+            renderEnrollments();
+        }
+
+        // Show the list of courses the CURRENT logged-in student is enrolled in
+        function renderEnrollments() {
+            var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+            if (!user) return;
+
+            var enrollments = getEnrollments().filter(function(en) {
+                return en.username === user.username;
+            });
+
+            var list = document.getElementById("enrolledList");
+            list.innerHTML = "";
+
+            if (enrollments.length === 0) {
+                list.innerHTML = "<li style='justify-content:center; color:#6b7280;'>No courses enrolled yet.</li>";
+                return;
+            }
+
+            enrollments.forEach(function(en) {
+                var item = document.createElement("li");
+                item.innerHTML =
+                    "<span><span class='badge'>Enrolled</span>&nbsp; " + en.course + "</span>" +
+                    "<button class='btn-del' onclick=\"unenrollCourse('" + en.course + "')\">Unenroll</button>";
+                list.appendChild(item);
+            });
+        }
+
+        // ---------- STUDENT CRUD ----------
+        function getStudents() {
+            return JSON.parse(localStorage.getItem("scStudents")) || [];
+        }
+        function saveStudents(list) {
+            localStorage.setItem("scStudents", JSON.stringify(list));
+        }
+
+        function addStudent(e) {
+            e.preventDefault();
+            var name = document.getElementById("stuName").value;
+            var roll = document.getElementById("stuRoll").value;
+            var course = document.getElementById("stuCourse").value;
+            var email = document.getElementById("stuEmail").value;
+
+            if (!name || !roll) {
+                alert("Please enter Name and Roll Number.");
+                return;
+            }
+
+            var students = getStudents();
+            students.push({ id: Date.now(), name: name, roll: roll, course: course, email: email });
+            saveStudents(students);
+
+            document.getElementById("stuName").value = "";
+            document.getElementById("stuRoll").value = "";
+            document.getElementById("stuCourse").value = "";
+            document.getElementById("stuEmail").value = "";
+
+            renderStudents();
+        }
+
+        function deleteStudent(id) {
+            if (!confirm("Delete this student?")) return;
+            var students = getStudents().filter(function(s) { return s.id !== id; });
+            saveStudents(students);
+            renderStudents();
+        }
+
+        function renderStudents() {
+            var students = getStudents();
+            var search = document.getElementById("searchInput").value.toLowerCase();
+            var filtered = students.filter(function(s) {
+                return s.name.toLowerCase().includes(search) || s.roll.toLowerCase().includes(search);
+            });
+
+            var body = document.getElementById("studentTableBody");
+            body.innerHTML = "";
+
+            filtered.forEach(function(s) {
+                var row = document.createElement("tr");
+                row.innerHTML =
+                    "<td data-label='Name'>" + s.name + "</td>" +
+                    "<td data-label='Roll No.'>" + s.roll + "</td>" +
+                    "<td data-label='Course'>" + (s.course || "-") + "</td>" +
+                    "<td data-label='Email'>" + (s.email || "-") + "</td>" +
+                    "<td data-label='Action'><button class='btn-del' onclick='deleteStudent(" + s.id + ")'>Delete</button></td>";
+                body.appendChild(row);
+            });
+        }
+    </script>
+
+</body>
+</html>
