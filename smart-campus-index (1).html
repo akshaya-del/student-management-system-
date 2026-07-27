@@ -27,7 +27,7 @@
             color: #f4a259;
         }
 
-        /* every "page" is hidden by default, only the active one shows */
+     
         .page {
             display: none;
         }
@@ -35,7 +35,6 @@
             display: block;
         }
 
-        /* ---------- HOME PAGE ---------- */
         .hero {
             background-color: #3b82c4;
             color: white;
@@ -71,7 +70,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* ---------- LOGIN / REGISTER PAGES ---------- */
         .form-box {
             background-color: white;
             width: 320px;
@@ -126,7 +124,7 @@
             display: none;
         }
 
-        /* ---------- DASHBOARD PAGE ---------- */
+       
         .header {
             background-color: white;
             padding: 15px 30px;
@@ -192,44 +190,33 @@
             border-bottom: 1px solid #dfe4ea;
         }
 
-        /* ===================================================
-           CONTINUATION OF STYLES - Polish & Responsiveness
-        =================================================== */
-
-        /* Smooth transitions on anything that changes state */
         a, button, input, .card, .btn, .full-btn {
             transition: all 0.2s ease-in-out;
         }
 
-        /* Highlight input boxes when clicked/focused - helps users see where they're typing */
+        
         input:focus {
             outline: none;
             border-color: #3b82c4;
             box-shadow: 0 0 0 3px rgba(59, 130, 196, 0.2);
         }
 
-        /* Lift feature cards slightly on hover - Home page */
+       
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 14px rgba(0,0,0,0.12);
         }
-
-        /* Button press effect - feels more "clickable" */
         .btn:active, .full-btn:active, .btn-del:active {
             transform: scale(0.97);
         }
-
-        /* Highlight table rows when hovering, so it's easy to scan */
         tbody tr:hover {
             background-color: #f0f4f9;
         }
 
-        /* Delete button gets darker on hover for clear feedback */
         .btn-del:hover {
             background-color: #b83a3a;
         }
 
-        /* Style the file upload / select dropdown consistently with other inputs */
         select, input[type="file"] {
             padding: 8px;
             border: 1px solid #dfe4ea;
@@ -237,13 +224,11 @@
             font-family: inherit;
         }
 
-        /* Give the whole page a little breathing room on very wide screens */
         .container, .features {
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* ---------- RESPONSIVE DESIGN (for tablets & phones) ---------- */
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
@@ -266,7 +251,7 @@
                 width: 100%;
             }
             th {
-                display: none; /* hide table headers on small screens */
+                display: none;
             }
             td {
                 display: flex;
@@ -280,17 +265,12 @@
                 color: #1e3a5f;
             }
         }
-
-        /* Small screens - stack feature cards vertically for easier reading */
         @media (max-width: 480px) {
             .card {
                 width: 90%;
             }
         }
 
-        /* ===================================================
-           COURSE ENROLLMENT STYLES
-        =================================================== */
         .course-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -375,7 +355,6 @@
 </head>
 <body>
 
-    <!-- ===== NAVBAR (always visible) ===== -->
     <div class="navbar">
         <div><b>Smart Campus</b></div>
         <div>
@@ -386,7 +365,6 @@
         </div>
     </div>
 
-    <!-- ===== HOME PAGE ===== -->
     <div id="homePage" class="page active">
         <div class="hero">
             <h1>Welcome to Smart Campus</h1>
@@ -401,7 +379,6 @@
         </div>
     </div>
 
-    <!-- ===== LOGIN PAGE ===== -->
     <div id="loginPage" class="page">
         <div class="form-box">
             <h2>Login</h2>
@@ -421,7 +398,6 @@
         </div>
     </div>
 
-    <!-- ===== REGISTER PAGE ===== -->
     <div id="registerPage" class="page">
         <div class="form-box">
             <h2>Register</h2>
@@ -450,7 +426,6 @@
         </div>
     </div>
 
-    <!-- ===== DASHBOARD PAGE ===== -->
     <div id="dashboardPage" class="page">
         <div class="header">
             <h2>Welcome, <span id="welcomeUser" style="color:#3b82c4;">Student</span></h2>
@@ -484,7 +459,6 @@
                 </table>
             </div>
 
-            <!-- ===== COURSE ENROLLMENT PANEL ===== -->
             <div class="panel">
                 <h3>Enroll in a Course</h3>
                 <p style="color:#6b7280; margin-bottom:10px;">Select a course below, then click Enroll.</p>
@@ -525,9 +499,9 @@
     </div>
 
     <script>
-        // ---------- PAGE SWITCHING ----------
+       
         function showPage(pageId) {
-            // if trying to open dashboard without logging in, send to login instead
+          
             if (pageId === "dashboardPage") {
                 var user = JSON.parse(localStorage.getItem("scCurrentUser"));
                 if (!user) {
@@ -546,7 +520,6 @@
             document.getElementById(pageId).classList.add("active");
         }
 
-        // ---------- REGISTER ----------
         function doRegister(e) {
             e.preventDefault();
             var name = document.getElementById("regName").value;
@@ -597,7 +570,6 @@
             }, 1200);
         }
 
-        // ---------- LOGIN ----------
         function doLogin(e) {
             e.preventDefault();
             var username = document.getElementById("loginUsername").value;
@@ -628,21 +600,15 @@
                 showPage("dashboardPage");
             }, 800);
         }
-
-        // ---------- LOGOUT ----------
         function doLogout() {
             localStorage.removeItem("scCurrentUser");
             showPage("loginPage");
         }
 
-        // ---------- COURSE ENROLLMENT ----------
-        var selectedCourse = null; // remembers which course card is currently clicked
+        var selectedCourse = null; 
 
-        // Highlight the clicked course card and enable the Enroll button
         function selectCourse(courseName) {
             selectedCourse = courseName;
-
-            // remove "selected" style from every card, then add it only to the clicked one
             var cards = document.getElementsByClassName("course-card");
             for (var i = 0; i < cards.length; i++) {
                 cards[i].classList.remove("selected");
@@ -652,8 +618,6 @@
 
             document.getElementById("enrollBtn").disabled = false;
         }
-
-        // Get all enrollments (an array of { username, course } objects) from storage
         function getEnrollments() {
             return JSON.parse(localStorage.getItem("scEnrollments")) || [];
         }
@@ -661,7 +625,6 @@
             localStorage.setItem("scEnrollments", JSON.stringify(list));
         }
 
-        // Enroll the current user into the currently selected course
         function enrollInCourse() {
             var user = JSON.parse(localStorage.getItem("scCurrentUser"));
             var msg = document.getElementById("enrollMsg");
@@ -672,7 +635,6 @@
 
             var enrollments = getEnrollments();
 
-            // check the student isn't already enrolled in this exact course
             var alreadyEnrolled = enrollments.some(function(en) {
                 return en.username === user.username && en.course === selectedCourse;
             });
@@ -708,7 +670,6 @@
             renderEnrollments();
         }
 
-        // Show the list of courses the CURRENT logged-in student is enrolled in
         function renderEnrollments() {
             var user = JSON.parse(localStorage.getItem("scCurrentUser"));
             if (!user) return;
@@ -734,7 +695,6 @@
             });
         }
 
-        // ---------- STUDENT CRUD ----------
         function getStudents() {
             return JSON.parse(localStorage.getItem("scStudents")) || [];
         }
