@@ -1,0 +1,1020 @@
+<html>
+<head>
+    <title>Smart Campus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f7fa;
+            color: #1f2937;
+        }
+        .navbar {
+            background-color: #1e3a5f;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .navbar a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .navbar a:hover {
+            color: #f4a259;
+        }
+
+        /* every "page" is hidden by default, only the active one shows */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* ---------- HOME PAGE ---------- */
+        .hero {
+            background-color: #3b82c4;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: 36px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #f4a259;
+            color: #1e3a5f;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+        }
+        .card {
+            background-color: white;
+            border-top: 4px solid #f4a259;
+            border-radius: 8px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* ---------- LOGIN / REGISTER PAGES ---------- */
+        .form-box {
+            background-color: white;
+            width: 320px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 8px;
+            border-top: 5px solid #f4a259;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .form-box h2 {
+            text-align: center;
+            color: #1e3a5f;
+        }
+        .form-box label {
+            font-weight: bold;
+            color: #1e3a5f;
+        }
+        .form-box input {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 16px 0;
+            border: 1px solid #dfe4ea;
+            border-radius: 5px;
+        }
+        .full-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-navy {
+            background-color: #1e3a5f;
+            color: white;
+        }
+        .btn-navy:hover {
+            background-color: #14263f;
+        }
+        .btn-gold {
+            background-color: #f4a259;
+            color: #1e3a5f;
+        }
+        .btn-gold:hover {
+            background-color: #e08a34;
+        }
+        #loginMsg, #registerMsg {
+            text-align: center;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        /* ---------- DASHBOARD PAGE ---------- */
+        .header {
+            background-color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #dfe4ea;
+        }
+        .logout-btn {
+            background-color: #d64545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .panel {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .panel h3 {
+            color: #1e3a5f;
+            border-bottom: 2px solid #f4a259;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .student-form input {
+            padding: 8px;
+            margin: 5px 5px 5px 0;
+            border: 1px solid #dfe4ea;
+            border-radius: 5px;
+        }
+        .btn-del {
+            background-color: #d64545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 13px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th {
+            background-color: #1e3a5f;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #dfe4ea;
+        }
+
+        a, button, input, .card, .btn, .full-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        input:focus {
+            outline: none;
+            border-color: #3b82c4;
+            box-shadow: 0 0 0 3px rgba(59, 130, 196, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+        }
+
+        .btn:active, .full-btn:active, .btn-del:active {
+            transform: scale(0.97);
+        }
+        tbody tr:hover {
+            background-color: #f0f4f9;
+        }
+
+        .btn-del:hover {
+            background-color: #b83a3a;
+        }
+
+        select, input[type="file"] {
+            padding: 8px;
+            border: 1px solid #dfe4ea;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .container, .features {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .navbar a {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
+            .form-box {
+                width: 90%;
+                margin: 30px auto;
+            }
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+            th {
+                display: none; 
+            }
+            td {
+                display: flex;
+                justify-content: space-between;
+                padding: 8px 12px;
+                border-bottom: 1px solid #eee;
+            }
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #1e3a5f;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                width: 90%;
+            }
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 10px;
+        }
+        .course-card {
+            background-color: white;
+            border: 2px solid #dfe4ea;
+            border-radius: 8px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .course-card:hover {
+            border-color: #3b82c4;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .course-card.selected {
+            border-color: #f4a259;
+            background-color: #fff6ec;
+        }
+        .course-card .course-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+        .course-card h4 {
+            color: #1e3a5f;
+            margin-bottom: 4px;
+        }
+        .course-card p {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        .enroll-btn {
+            margin-top: 16px;
+            padding: 10px 24px;
+            background-color: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .enroll-btn:hover {
+            background-color: #14263f;
+        }
+        .enroll-btn:disabled {
+            background-color: #a9b4c0;
+            cursor: not-allowed;
+        }
+        .enrolled-list {
+            list-style: none;
+            margin-top: 14px;
+        }
+        .enrolled-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f7fa;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: #e4f6ec;
+            color: #2e9e5b;
+        }
+        #enrollMsg {
+            text-align: center;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* ---------- LEARN / COURSE CONTENT PAGE ---------- */
+        .btn-learn {
+            background-color: #3b82c4;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            font-size: 13px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-learn:hover {
+            background-color: #2f6ba0;
+        }
+        .learn-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-link {
+            color: #3b82c4;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .progress-wrap {
+            background-color: #e5e9ef;
+            border-radius: 20px;
+            height: 14px;
+            width: 100%;
+            margin: 10px 0 4px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background-color: #2e9e5b;
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.3s ease-in-out;
+        }
+        .progress-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+        .lesson-item {
+            background-color: #f9fafb;
+            border: 1px solid #e5e9ef;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+        }
+        .lesson-item.done {
+            border-color: #b7e4c7;
+            background-color: #f2fbf5;
+        }
+        .lesson-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .lesson-top h4 {
+            color: #1e3a5f;
+            margin: 0;
+        }
+        .lesson-item p {
+            color: #4b5563;
+            font-size: 14px;
+            margin: 8px 0 0 0;
+            line-height: 1.5;
+        }
+        .lesson-check {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .lesson-check input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        .done-tag {
+            color: #2e9e5b;
+        }
+        .pending-tag {
+            color: #a9b4c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div><b>Smart Campus</b></div>
+        <div>
+            <a onclick="showPage('homePage')">Home</a>
+            <a onclick="showPage('loginPage')">Login</a>
+            <a onclick="showPage('registerPage')">Register</a>
+            <a onclick="showPage('dashboardPage')">Dashboard</a>
+        </div>
+    </div>
+
+    <div id="homePage" class="page active">
+        <div class="hero">
+            <h1>Welcome to Smart Campus</h1>
+            <p>Add, view, edit, and search student records - all in one place.</p>
+            <button class="btn" onclick="showPage('registerPage')">Get Started</button>
+        </div>
+        <div class="features">
+            <div class="card"><h3>Add Records</h3><p>Add new student details easily.</p></div>
+            <div class="card"><h3>View Records</h3><p>See all students in a table.</p></div>
+            <div class="card"><h3>Edit Records</h3><p>Update details anytime.</p></div>
+            <div class="card"><h3>Search Records</h3><p>Find students instantly.</p></div>
+        </div>
+    </div>
+
+    <div id="loginPage" class="page">
+        <div class="form-box">
+            <h2>Login</h2>
+            <div id="loginMsg"></div>
+            <form onsubmit="doLogin(event)">
+                <label>Username:</label>
+                <input type="text" id="loginUsername" placeholder="Enter username">
+
+                <label>Password:</label>
+                <input type="password" id="loginPassword" placeholder="Enter password">
+
+                <button class="full-btn btn-navy" type="submit">Login</button>
+            </form>
+            <p style="text-align:center; margin-top:10px;">
+                No account? <a onclick="showPage('registerPage')">Register here</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="registerPage" class="page">
+        <div class="form-box">
+            <h2>Register</h2>
+            <div id="registerMsg"></div>
+            <form onsubmit="doRegister(event)">
+                <label>Full Name:</label>
+                <input type="text" id="regName" placeholder="Enter your name">
+
+                <label>Email:</label>
+                <input type="email" id="regEmail" placeholder="Enter your email">
+
+                <label>Username:</label>
+                <input type="text" id="regUsername" placeholder="Choose a username">
+
+                <label>Password:</label>
+                <input type="password" id="regPassword" placeholder="Minimum 6 characters">
+
+                <label>Confirm Password:</label>
+                <input type="password" id="regConfirmPassword" placeholder="Re-enter password">
+
+                <button class="full-btn btn-gold" type="submit">Register</button>
+            </form>
+            <p style="text-align:center; margin-top:10px;">
+                Already have an account? <a onclick="showPage('loginPage')">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="dashboardPage" class="page">
+        <div class="header">
+            <h2>Welcome, <span id="welcomeUser" style="color:#3b82c4;">Student</span></h2>
+            <button class="logout-btn" onclick="doLogout()">Logout</button>
+        </div>
+
+        <div class="container">
+            <div class="panel">
+                <h3>Add Student</h3>
+                <form class="student-form" onsubmit="addStudent(event)">
+                    <input type="text" id="stuName" placeholder="Name">
+                    <input type="text" id="stuRoll" placeholder="Roll Number">
+                    <input type="text" id="stuCourse" placeholder="Course">
+                    <input type="email" id="stuEmail" placeholder="Email">
+                    <button class="btn" type="submit">Save Student</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Student Records</h3>
+                <input type="text" id="searchInput" placeholder="Search..." onkeyup="renderStudents()" style="padding:8px; width:250px; margin-bottom:10px; border:1px solid #dfe4ea; border-radius:5px;">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Roll No.</th>
+                        <th>Course</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody id="studentTableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- ===== COURSE ENROLLMENT PANEL ===== -->
+            <div class="panel">
+                <h3>Enroll in a Course</h3>
+                <p style="color:#6b7280; margin-bottom:10px;">Select a course below, then click Enroll.</p>
+
+                <div class="course-grid" id="courseGrid">
+                    <div class="course-card" data-course="Java" onclick="selectCourse('Java')">
+                        <div class="course-icon">☕</div>
+                        <h4>Java</h4>
+                        <p>Object-oriented programming fundamentals</p>
+                    </div>
+                    <div class="course-card" data-course="Python" onclick="selectCourse('Python')">
+                        <div class="course-icon">🐍</div>
+                        <h4>Python</h4>
+                        <p>Beginner-friendly, versatile language</p>
+                    </div>
+                    <div class="course-card" data-course="Full Stack" onclick="selectCourse('Full Stack')">
+                        <div class="course-icon">💻</div>
+                        <h4>Full Stack</h4>
+                        <p>Frontend + backend web development</p>
+                    </div>
+                    <div class="course-card" data-course="Data Science" onclick="selectCourse('Data Science')">
+                        <div class="course-icon">📊</div>
+                        <h4>Data Science</h4>
+                        <p>Data analysis, statistics, and ML basics</p>
+                    </div>
+                    <div class="course-card" data-course="JavaScript" onclick="selectCourse('JavaScript')">
+                        <div class="course-icon">🟨</div>
+                        <h4>JavaScript</h4>
+                        <p>Core language for interactive, dynamic websites</p>
+                    </div>
+                </div>
+
+                <div style="text-align:center;">
+                    <button class="enroll-btn" id="enrollBtn" onclick="enrollInCourse()" disabled>Enroll</button>
+                </div>
+
+                <div id="enrollMsg"></div>
+
+                <h4 style="margin-top:24px; color:#1e3a5f;">Your Enrolled Courses</h4>
+                <ul class="enrolled-list" id="enrolledList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== COURSE LEARNING PAGE (NEW) ===== -->
+    <div id="learnPage" class="page">
+        <div class="header">
+            <h2 id="learnCourseTitle" style="color:#3b82c4;">Course</h2>
+            <button class="logout-btn" onclick="doLogout()">Logout</button>
+        </div>
+        <div class="container">
+            <div class="panel">
+                <div class="learn-header">
+                    <a class="back-link" onclick="showPage('dashboardPage')">&larr; Back to Dashboard</a>
+                </div>
+                <h3 id="learnCourseHeading">Course Content</h3>
+                <div class="progress-wrap"><div class="progress-fill" id="learnProgressFill" style="width:0%;"></div></div>
+                <div class="progress-label" id="learnProgressLabel">0 of 0 lessons complete</div>
+
+                <div id="lessonList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        /* ===================================================
+           COURSE CONTENT DATA
+           Add/edit lessons here for each enrolled course
+        =================================================== */
+        var courseData = {
+            "Java": [
+                { title: "1. Introduction to Java", content: "Overview of Java, the JVM, JDK vs JRE, and setting up your first development environment." },
+                { title: "2. Variables & Data Types", content: "Primitive types, variable declaration, type casting, and basic operators." },
+                { title: "3. Control Flow", content: "if/else, switch statements, for/while loops, and break/continue." },
+                { title: "4. Object-Oriented Programming", content: "Classes, objects, constructors, inheritance, polymorphism, and encapsulation." },
+                { title: "5. Exception Handling", content: "try/catch/finally blocks, custom exceptions, and best practices for error handling." },
+                { title: "6. Collections Framework", content: "ArrayList, HashMap, HashSet, and iterating over collections." }
+            ],
+            "Python": [
+                { title: "1. Getting Started with Python", content: "Installing Python, using the interpreter, and writing your first script." },
+                { title: "2. Variables, Types & Operators", content: "Numbers, strings, lists, dictionaries, and basic arithmetic/logical operators." },
+                { title: "3. Control Flow & Functions", content: "if/elif/else, loops, defining functions, and default/keyword arguments." },
+                { title: "4. Data Structures", content: "Lists, tuples, sets, dictionaries, and comprehensions." },
+                { title: "5. File Handling & Modules", content: "Reading/writing files, importing modules, and using pip packages." },
+                { title: "6. Intro to OOP in Python", content: "Classes, objects, inheritance, and dunder methods." }
+            ],
+            "Full Stack": [
+                { title: "1. HTML & CSS Basics", content: "Structuring pages with HTML5 and styling with CSS including Flexbox/Grid." },
+                { title: "2. JavaScript Fundamentals", content: "Variables, functions, DOM manipulation, and event handling." },
+                { title: "3. Frontend Frameworks", content: "Introduction to component-based UI development (e.g. React basics)." },
+                { title: "4. Backend with Node.js", content: "Setting up a server, routing, and handling requests with Express." },
+                { title: "5. Databases", content: "Connecting to a database, CRUD operations, and basic schema design." },
+                { title: "6. Deploying Full Stack Apps", content: "Environment variables, hosting options, and deployment basics." }
+            ],
+            "Data Science": [
+                { title: "1. Introduction to Data Science", content: "The data science workflow, tools overview (Python, pandas, notebooks)." },
+                { title: "2. Data Cleaning & Preprocessing", content: "Handling missing values, duplicates, and formatting data for analysis." },
+                { title: "3. Exploratory Data Analysis", content: "Descriptive statistics, visualization basics, and identifying patterns." },
+                { title: "4. Statistics Fundamentals", content: "Mean, median, variance, distributions, and hypothesis testing basics." },
+                { title: "5. Intro to Machine Learning", content: "Supervised vs unsupervised learning, train/test splits, and basic models." },
+                { title: "6. Presenting Findings", content: "Building charts and communicating insights clearly." }
+            ],
+            "JavaScript": [
+                { title: "1. Introduction to JavaScript", content: "What JavaScript is, how it runs in the browser, and linking a script to an HTML page." },
+                { title: "2. Variables & Data Types", content: "let, const, var, strings, numbers, booleans, arrays, and objects." },
+                { title: "3. Functions & Scope", content: "Function declarations, arrow functions, parameters, return values, and variable scope." },
+                { title: "4. Control Flow & Loops", content: "if/else, switch, for, while, and array iteration methods like forEach and map." },
+                { title: "5. DOM Manipulation", content: "Selecting elements, changing content/styles, and handling events like click and submit." },
+                { title: "6. Async JavaScript", content: "Callbacks, promises, async/await, and fetching data from an API." }
+            ]
+        };
+
+        var currentLearnCourse = null;
+
+        function showPage(pageId) {
+            // if trying to open dashboard or learn page without logging in, send to login instead
+            if (pageId === "dashboardPage" || pageId === "learnPage") {
+                var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+                if (!user) {
+                    pageId = "loginPage";
+                } else if (pageId === "dashboardPage") {
+                    document.getElementById("welcomeUser").innerHTML = user.name;
+                    renderStudents();
+                    renderEnrollments();
+                }
+            }
+
+            var pages = document.getElementsByClassName("page");
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove("active");
+            }
+            document.getElementById(pageId).classList.add("active");
+        }
+
+        function doRegister(e) {
+            e.preventDefault();
+            var name = document.getElementById("regName").value;
+            var email = document.getElementById("regEmail").value;
+            var username = document.getElementById("regUsername").value;
+            var password = document.getElementById("regPassword").value;
+            var confirmPassword = document.getElementById("regConfirmPassword").value;
+            var msg = document.getElementById("registerMsg");
+
+            function showError(text) {
+                msg.style.display = "block";
+                msg.style.backgroundColor = "#fbe9e9";
+                msg.style.color = "#d64545";
+                msg.innerHTML = text;
+            }
+
+            if (!name || !email || !username || !password) {
+                showError("Please fill in all fields.");
+                return;
+            }
+            if (password.length < 6) {
+                showError("Password must be at least 6 characters.");
+                return;
+            }
+            if (password !== confirmPassword) {
+                showError("Passwords do not match.");
+                return;
+            }
+
+            var users = JSON.parse(localStorage.getItem("scUsers")) || [];
+            var exists = users.some(function(u) { return u.username === username; });
+            if (exists) {
+                showError("That username is already taken.");
+                return;
+            }
+
+            users.push({ name: name, email: email, username: username, password: password });
+            localStorage.setItem("scUsers", JSON.stringify(users));
+
+            msg.style.display = "block";
+            msg.style.backgroundColor = "#e4f6ec";
+            msg.style.color = "#2e9e5b";
+            msg.innerHTML = "Account created! Redirecting to login...";
+
+            setTimeout(function() {
+                showPage("loginPage");
+                msg.style.display = "none";
+            }, 1200);
+        }
+
+        function doLogin(e) {
+            e.preventDefault();
+            var username = document.getElementById("loginUsername").value;
+            var password = document.getElementById("loginPassword").value;
+            var msg = document.getElementById("loginMsg");
+
+            var users = JSON.parse(localStorage.getItem("scUsers")) || [];
+            var found = users.find(function(u) {
+                return u.username === username && u.password === password;
+            });
+
+            if (!found) {
+                msg.style.display = "block";
+                msg.style.backgroundColor = "#fbe9e9";
+                msg.style.color = "#d64545";
+                msg.innerHTML = "Invalid username or password.";
+                return;
+            }
+
+            localStorage.setItem("scCurrentUser", JSON.stringify(found));
+            msg.style.display = "block";
+            msg.style.backgroundColor = "#e4f6ec";
+            msg.style.color = "#2e9e5b";
+            msg.innerHTML = "Login successful! Redirecting...";
+
+            setTimeout(function() {
+                msg.style.display = "none";
+                showPage("dashboardPage");
+            }, 800);
+        }
+        function doLogout() {
+            localStorage.removeItem("scCurrentUser");
+            showPage("loginPage");
+        }
+
+        var selectedCourse = null; 
+
+        function selectCourse(courseName) {
+            selectedCourse = courseName;
+            var cards = document.getElementsByClassName("course-card");
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].classList.remove("selected");
+            }
+            var clickedCard = document.querySelector('[data-course="' + courseName + '"]');
+            clickedCard.classList.add("selected");
+
+            document.getElementById("enrollBtn").disabled = false;
+        }
+
+        function getEnrollments() {
+            return JSON.parse(localStorage.getItem("scEnrollments")) || [];
+        }
+        function saveEnrollments(list) {
+            localStorage.setItem("scEnrollments", JSON.stringify(list));
+        }
+
+        function enrollInCourse() {
+            var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+            var msg = document.getElementById("enrollMsg");
+
+            if (!selectedCourse) {
+                return;
+            }
+
+            var enrollments = getEnrollments();
+
+            var alreadyEnrolled = enrollments.some(function(en) {
+                return en.username === user.username && en.course === selectedCourse;
+            });
+
+            if (alreadyEnrolled) {
+                msg.style.display = "block";
+                msg.style.backgroundColor = "#fbe9e9";
+                msg.style.color = "#d64545";
+                msg.innerHTML = "You are already enrolled in " + selectedCourse + ".";
+                return;
+            }
+
+            enrollments.push({ username: user.username, course: selectedCourse });
+            saveEnrollments(enrollments);
+
+            msg.style.display = "block";
+            msg.style.backgroundColor = "#e4f6ec";
+            msg.style.color = "#2e9e5b";
+            msg.innerHTML = "Successfully enrolled in " + selectedCourse + "!";
+
+            renderEnrollments();
+        }
+
+        function unenrollCourse(courseName) {
+            if (!confirm("Unenroll from " + courseName + "?")) return;
+
+            var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+            var enrollments = getEnrollments().filter(function(en) {
+                return !(en.username === user.username && en.course === courseName);
+            });
+            saveEnrollments(enrollments);
+            renderEnrollments();
+        }
+        function renderEnrollments() {
+            var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+            if (!user) return;
+
+            var enrollments = getEnrollments().filter(function(en) {
+                return en.username === user.username;
+            });
+
+            var list = document.getElementById("enrolledList");
+            list.innerHTML = "";
+
+            if (enrollments.length === 0) {
+                list.innerHTML = "<li style='justify-content:center; color:#6b7280;'>No courses enrolled yet.</li>";
+                return;
+            }
+
+            enrollments.forEach(function(en) {
+                var item = document.createElement("li");
+                item.innerHTML =
+                    "<span><span class='badge'>Enrolled</span>&nbsp; " + en.course + "</span>" +
+                    "<span>" +
+                    "<button class='btn-learn' onclick=\"openCourseLearn('" + en.course + "')\">Continue Learning</button> " +
+                    "<button class='btn-del' onclick=\"unenrollCourse('" + en.course + "')\">Unenroll</button>" +
+                    "</span>";
+                list.appendChild(item);
+            });
+        }
+
+        /* ===================================================
+           COURSE LEARNING LOGIC (NEW)
+        =================================================== */
+
+        function getProgress() {
+            return JSON.parse(localStorage.getItem("scProgress")) || {};
+        }
+        function saveProgress(progress) {
+            localStorage.setItem("scProgress", JSON.stringify(progress));
+        }
+        function progressKey(username, course) {
+            return username + "::" + course;
+        }
+
+        function openCourseLearn(courseName) {
+            var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+            if (!user) {
+                showPage("loginPage");
+                return;
+            }
+            currentLearnCourse = courseName;
+            document.getElementById("learnCourseTitle").innerHTML = user.name;
+            document.getElementById("learnCourseHeading").innerHTML = courseName + " - Course Content";
+            showPage("learnPage");
+            renderLessons();
+        }
+
+        function toggleLesson(index) {
+            var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+            if (!user || !currentLearnCourse) return;
+
+            var progress = getProgress();
+            var key = progressKey(user.username, currentLearnCourse);
+            var completed = progress[key] || [];
+
+            var pos = completed.indexOf(index);
+            if (pos === -1) {
+                completed.push(index);
+            } else {
+                completed.splice(pos, 1);
+            }
+
+            progress[key] = completed;
+            saveProgress(progress);
+            renderLessons();
+        }
+
+        function renderLessons() {
+            var user = JSON.parse(localStorage.getItem("scCurrentUser"));
+            if (!user || !currentLearnCourse) return;
+
+            var lessons = courseData[currentLearnCourse] || [];
+            var progress = getProgress();
+            var key = progressKey(user.username, currentLearnCourse);
+            var completed = progress[key] || [];
+
+            var listEl = document.getElementById("lessonList");
+            listEl.innerHTML = "";
+
+            lessons.forEach(function(lesson, index) {
+                var isDone = completed.indexOf(index) !== -1;
+                var div = document.createElement("div");
+                div.className = "lesson-item" + (isDone ? " done" : "");
+                div.innerHTML =
+                    "<div class='lesson-top'>" +
+                        "<h4>" + lesson.title + "</h4>" +
+                        "<label class='lesson-check'>" +
+                            "<input type='checkbox' " + (isDone ? "checked" : "") + " onchange='toggleLesson(" + index + ")'>" +
+                            (isDone ? "<span class='done-tag'>Completed</span>" : "<span class='pending-tag'>Mark complete</span>") +
+                        "</label>" +
+                    "</div>" +
+                    "<p>" + lesson.content + "</p>";
+                listEl.appendChild(div);
+            });
+
+            var totalCount = lessons.length;
+            var doneCount = completed.length;
+            var percent = totalCount === 0 ? 0 : Math.round((doneCount / totalCount) * 100);
+
+            document.getElementById("learnProgressFill").style.width = percent + "%";
+            document.getElementById("learnProgressLabel").innerHTML = doneCount + " of " + totalCount + " lessons complete (" + percent + "%)";
+        }
+
+        function getStudents() {
+            return JSON.parse(localStorage.getItem("scStudents")) || [];
+        }
+        function saveStudents(list) {
+            localStorage.setItem("scStudents", JSON.stringify(list));
+        }
+
+        function addStudent(e) {
+            e.preventDefault();
+            var name = document.getElementById("stuName").value;
+            var roll = document.getElementById("stuRoll").value;
+            var course = document.getElementById("stuCourse").value;
+            var email = document.getElementById("stuEmail").value;
+
+            if (!name || !roll) {
+                alert("Please enter Name and Roll Number.");
+                return;
+            }
+
+            var students = getStudents();
+            students.push({ id: Date.now(), name: name, roll: roll, course: course, email: email });
+            saveStudents(students);
+
+            document.getElementById("stuName").value = "";
+            document.getElementById("stuRoll").value = "";
+            document.getElementById("stuCourse").value = "";
+            document.getElementById("stuEmail").value = "";
+
+            renderStudents();
+        }
+
+        function deleteStudent(id) {
+            if (!confirm("Delete this student?")) return;
+            var students = getStudents().filter(function(s) { return s.id !== id; });
+            saveStudents(students);
+            renderStudents();
+        }
+
+        function renderStudents() {
+            var students = getStudents();
+            var search = document.getElementById("searchInput").value.toLowerCase();
+            var filtered = students.filter(function(s) {
+                return s.name.toLowerCase().includes(search) || s.roll.toLowerCase().includes(search);
+            });
+
+            var body = document.getElementById("studentTableBody");
+            body.innerHTML = "";
+
+            filtered.forEach(function(s) {
+                var row = document.createElement("tr");
+                row.innerHTML =
+                    "<td data-label='Name'>" + s.name + "</td>" +
+                    "<td data-label='Roll No.'>" + s.roll + "</td>" +
+                    "<td data-label='Course'>" + (s.course || "-") + "</td>" +
+                    "<td data-label='Email'>" + (s.email || "-") + "</td>" +
+                    "<td data-label='Action'><button class='btn-del' onclick='deleteStudent(" + s.id + ")'>Delete</button></td>";
+                body.appendChild(row);
+            });
+        }
+    </script>
+
+</body>
+</html>
