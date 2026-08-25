@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Campus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <div><b>Smart Campus</b></div>
+        <div>
+            <a onclick="showPage('homePage')">Home</a>
+            <a onclick="showPage('loginPage')">Login</a>
+            <a onclick="showPage('registerPage')">Register</a>
+            <a onclick="showPage('dashboardPage')">Dashboard</a>
+        </div>
+    </div>
+
+    <div id="homePage" class="page active">
+        <div class="hero">
+            <h1>Welcome to Smart Campus</h1>
+            <p>Add, view, edit, and search student records - all in one place.</p>
+            <button class="btn" onclick="showPage('registerPage')">Get Started</button>
+        </div>
+        <div class="features">
+            <div class="card"><h3>Add Records</h3><p>Add new student details easily.</p></div>
+            <div class="card"><h3>View Records</h3><p>See all students in a table.</p></div>
+            <div class="card"><h3>Edit Records</h3><p>Update details anytime.</p></div>
+            <div class="card"><h3>Search Records</h3><p>Find students instantly.</p></div>
+        </div>
+    </div>
+
+    <div id="loginPage" class="page">
+        <div class="form-box">
+            <h2>Login</h2>
+            <div id="loginMsg"></div>
+            <form onsubmit="doLogin(event)">
+                <label>Username:</label>
+                <input type="text" id="loginUsername" placeholder="Enter username">
+
+                <label>Password:</label>
+                <input type="password" id="loginPassword" placeholder="Enter password">
+
+                <button class="full-btn btn-navy" type="submit">Login</button>
+            </form>
+            <p style="text-align:center; margin-top:10px;">
+                No account? <a onclick="showPage('registerPage')">Register here</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="registerPage" class="page">
+        <div class="form-box">
+            <h2>Register</h2>
+            <div id="registerMsg"></div>
+            <form onsubmit="doRegister(event)">
+                <label>Full Name:</label>
+                <input type="text" id="regName" placeholder="Enter your name">
+
+                <label>Email:</label>
+                <input type="email" id="regEmail" placeholder="Enter your email">
+
+                <label>Username:</label>
+                <input type="text" id="regUsername" placeholder="Choose a username">
+
+                <label>Password:</label>
+                <input type="password" id="regPassword" placeholder="Minimum 6 characters">
+
+                <label>Confirm Password:</label>
+                <input type="password" id="regConfirmPassword" placeholder="Re-enter password">
+
+                <button class="full-btn btn-gold" type="submit">Register</button>
+            </form>
+            <p style="text-align:center; margin-top:10px;">
+                Already have an account? <a onclick="showPage('loginPage')">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="dashboardPage" class="page">
+        <div class="header">
+            <h2>Welcome, <span id="welcomeUser" style="color:#3b82c4;">Student</span></h2>
+            <button class="logout-btn" onclick="doLogout()">Logout</button>
+        </div>
+
+        <div class="container">
+            <div class="panel">
+                <h3>Add Student</h3>
+                <form class="student-form" onsubmit="addStudent(event)">
+                    <input type="text" id="stuName" placeholder="Name">
+                    <input type="text" id="stuRoll" placeholder="Roll Number">
+                    <input type="text" id="stuCourse" placeholder="Course">
+                    <input type="email" id="stuEmail" placeholder="Email">
+                    <button class="btn" type="submit">Save Student</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Student Records</h3>
+                <input type="text" id="searchInput" placeholder="Search..." onkeyup="renderStudents()" style="padding:8px; width:250px; margin-bottom:10px; border:1px solid #dfe4ea; border-radius:5px;">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Roll No.</th>
+                        <th>Course</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody id="studentTableBody"></tbody>
+                </table>
+            </div>
+
+            <!-- ===== COURSE ENROLLMENT PANEL ===== -->
+            <div class="panel">
+                <h3>Enroll in a Course</h3>
+                <p style="color:#6b7280; margin-bottom:10px;">Select a course below, then click Enroll.</p>
+
+                <div class="course-grid" id="courseGrid">
+                    <div class="course-card" data-course="Java" onclick="selectCourse('Java')">
+                        <div class="course-icon">☕</div>
+                        <h4>Java</h4>
+                        <p>Object-oriented programming fundamentals</p>
+                    </div>
+                    <div class="course-card" data-course="Python" onclick="selectCourse('Python')">
+                        <div class="course-icon">🐍</div>
+                        <h4>Python</h4>
+                        <p>Beginner-friendly, versatile language</p>
+                    </div>
+                    <div class="course-card" data-course="Full Stack" onclick="selectCourse('Full Stack')">
+                        <div class="course-icon">💻</div>
+                        <h4>Full Stack</h4>
+                        <p>Frontend + backend web development</p>
+                    </div>
+                    <div class="course-card" data-course="Data Science" onclick="selectCourse('Data Science')">
+                        <div class="course-icon">📊</div>
+                        <h4>Data Science</h4>
+                        <p>Data analysis, statistics, and ML basics</p>
+                    </div>
+                </div>
+
+                <div style="text-align:center;">
+                    <button class="enroll-btn" id="enrollBtn" onclick="enrollInCourse()" disabled>Enroll</button>
+                </div>
+
+                <div id="enrollMsg"></div>
+
+                <h4 style="margin-top:24px; color:#1e3a5f;">Your Enrolled Courses</h4>
+                <ul class="enrolled-list" id="enrolledList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
