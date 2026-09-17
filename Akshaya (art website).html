@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vernis — Contemporary Art Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --wall:      #ECE7DD;   
+  --card:      #FAF8F3;   
+  --ink:       #1B1B1B;   
+  --ink-soft:  #4A4740;   
+  --red:       #8B2E1F;   
+  --brass:     #C9A86A;   
+  --sage:      #6B7A63;   
+  --line:      rgba(144, 40, 40, 0.14);
+  --line-soft: rgba(27,27,27,0.08);
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --container: 1180px;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--wall);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, button, input, textarea, select{ font-family: inherit; }
+
+a{ color: inherit; text-decoration: none; }
+
+.section-inner{
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+:focus-visible{
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+body{
+  background-image:
+    radial-gradient(rgba(27,27,27,0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color .2s ease;
+}
+.btn-primary{
+  background: var(--ink);
+  color: var(--card);
+}
+.btn-primary:hover{
+  background: var(--red);
+  transform: translateY(-1px);
+}
+.btn-ghost{
+  border-color: var(--ink);
+  color: var(--ink);
+  background: transparent;
+}
+.btn-ghost:hover{
+  background: var(--ink);
+  color: var(--card);
+}
+.btn-block{ width: 100%; }
+
+
+.site-header{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 32px;
+  display: flex;
+  transition: background 0.3s ease, padding 0.3s ease, box-shadow .3s ease;
+}
+.site-header.scrolled{
+  background: rgba(236,231,221,0.92);
+  backdrop-filter: blur(8px);
+  padding: 12px 32px;
+  box-shadow: 0 1px 0 var(--line);
+}
+.header-inner{
+  max-width: var(--container);
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-mark{
+  width: 34px; height: 34px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+}
+.logo-mark.small{ width: 28px; height: 28px; font-size: 13px; }
+.logo-text{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+}
+.main-nav{ display: flex; gap: 36px; }
+.main-nav a{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 4px;
+}
+.main-nav a::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:0;
+  height: 1px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+.main-nav a:hover::after{ transform: scaleX(1); }
+
+.nav-toggle{
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.nav-toggle span{
+  width: 22px; height: 2px; background: var(--ink);
+}
+
+
+.hero{
+  position: relative;
+  min-height: 92vh;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 40px;
+  padding: 140px 32px 80px;
+  max-width: var(--container);
+  margin: 0 auto;
+  overflow: hidden;
+}
+.hero-inner{ position: relative; z-index: 2; }
+.hero-eyebrow{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin: 0 0 22px;
+}
+.hero-title{
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(44px, 6vw, 76px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin: 0 0 24px;
+}
+.hero-sub{
+  max-width: 44ch;
+  font-size: 17px;
+  color: var(--ink-soft);
+  margin: 0 0 36px;
+}
+.hero-actions{ display: flex; gap: 16px; flex-wrap: wrap; }
+
+.hero-frame{
+  position: relative;
+  justify-self: center;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px -20px rgba(27,27,27,0.35);
+  transform: rotate(1.5deg);
+}
+.frame-art{
+  width: min(340px, 32vw);
+  aspect-ratio: 4/5;
+  border: 10px solid var(--card);
+  outline: 1px solid var(--brass);
+  outline-offset: -4px;
+}
+.frame-art-1{
+  background:
+    radial-gradient(circle at 30% 30%, rgba(139,46,31,0.55), transparent 55%),
+    radial-gradient(circle at 70% 65%, rgba(201,168,106,0.55), transparent 60%),
+    linear-gradient(160deg, #2b2b25, #1b1b1b 60%);
+}
+.frame-plaque{
+  display: block;
+  margin-top: 14px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+@media (min-width: 900px){
+  .hero-frame::before{
+    content:"";
+    position: absolute;
+    inset: -18px;
+    border: 1px solid var(--line-soft);
+    z-index: -1;
+  }
+}
+
+.categories{ padding: 10px 0 30px; }
+.section-kicker{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+}
+.cat-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.cat-pill{
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.cat-pill:hover{ border-color: var(--ink); color: var(--ink); }
+.cat-pill.active{
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--card);
+}
+
+.section-head{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 56px 0 32px;
+  flex-wrap: wrap;
+}
+.section-title{
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.08;
+  margin: 0;
+}
+.section-note{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.gallery{ padding-bottom: 40px; }
+.gallery-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 24px;
+}
+.art-card{
+  display: flex;
+  flex-direction: column;
+  transition: transform .3s ease;
+}
+.art-card.is-hidden{ display: none; }
+.art-card:hover{ transform: translateY(-4px); }
+
+.art-visual{
+  appearance: none;
+  border: 1px solid var(--line);
+  padding: 0;
+  cursor: pointer;
+  aspect-ratio: 4/5;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.art-visual::after{
+  content: "View \2197";
+  position: absolute;
+  right: 10px; bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--card);
+  background: rgba(27,27,27,0.55);
+  padding: 5px 9px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all .2s ease;
+}
+.art-visual:hover::after{ opacity: 1; transform: translateY(0); }
+.art-visual:hover{ outline: 2px solid var(--brass); outline-offset: -2px; }
+
+.art-1{ background: linear-gradient(155deg,#c96a4c,#8b2e1f 55%,#2c1712); }
+.art-2{ background: radial-gradient(circle at 60% 30%, #d9c393, #8a6a34 55%, #241c0f); }
+.art-3{ background: linear-gradient(180deg,#cfd3ce,#8b938c 60%,#3a3f3b); }
+.art-4{ background: conic-gradient(from 210deg, #6b7a63, #c9a86a, #8b2e1f, #6b7a63); }
+.art-5{ background: linear-gradient(120deg,#e4dcc8,#a8785a 50%,#3f2a20); }
+.art-6{ background: radial-gradient(circle at 40% 70%, #24406b, #101a2e 70%); }
+.art-7{ background: linear-gradient(160deg,#b5643f,#5c3421 60%,#241209); }
+.art-8{ background: linear-gradient(200deg,#e8e2d2,#9a9282 55%,#403c33); }
+
+.art-label{ padding-top: 14px; }
+.art-label-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.art-no{
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+.status-dot{
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.status-dot.sold{ background: var(--red); }
+.status-dot.available{ background: var(--sage); }
+
+.art-title{
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 19px;
+  margin: 0 0 2px;
+}
+.art-artist{
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 0 0 2px;
+}
+.art-meta{
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  opacity: 0.8;
+  margin: 0;
+}
+.artists{ padding: 30px 0; }
+.artist-row{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.artist-card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 28px 22px;
+  text-align: center;
+}
+.artist-portrait{
+  width: 68px; height: 68px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--card);
+}
+.portrait-1{ background: linear-gradient(155deg,#c96a4c,#8b2e1f); }
+.portrait-2{ background: linear-gradient(155deg,#d9c393,#8a6a34); }
+.portrait-3{ background: linear-gradient(155deg,#a9b0a4,#5c6459); }
+.portrait-4{ background: linear-gradient(155deg,#8b2e1f,#241c0f); }
+
+.artist-name{
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 19px;
+  margin: 0 0 4px;
+}
+.artist-role{
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 14px;
+}
+.artist-bio{
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+}
+.artist-tag{
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  width: 100%;
+}
+
+.contact{
+  padding: 70px 0 90px;
+  background: var(--ink);
+  color: var(--wall);
+  margin-top: 40px;
+}
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.contact .section-kicker{ color: var(--brass); }
+.contact .section-title{ color: var(--card); }
+.contact-copy{
+  color: rgba(250,248,243,0.72);
+  max-width: 42ch;
+  margin: 18px 0 36px;
+}
+.contact-details{
+  display: grid;
+  gap: 22px;
+  margin: 0;
+}
+.contact-details dt{
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 4px;
+}
+.contact-details dd{
+  margin: 0;
+  color: rgba(250,248,243,0.85);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.contact-form{
+  background: var(--card);
+  color: var(--ink);
+  padding: 32px;
+  border: 1px solid rgba(250,248,243,0.1);
+}
+.form-row{ margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+.form-row label{
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.form-row input,
+.form-row select,
+.form-row textarea{
+  border: 1px solid var(--line);
+  background: var(--wall);
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--ink);
+  border-radius: 2px;
+  resize: vertical;
+}
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus{
+  outline: none;
+  border-color: var(--red);
+}
+.form-note{
+  margin: 14px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--sage);
+  min-height: 16px;
+}
+
+.site-footer{ padding: 34px 0 50px; }
+.footer-inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.footer-brand{ display: flex; align-items: center; gap: 8px; }
+.footer-copy{
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.footer-links{ display: flex; gap: 22px; }
+.footer-links a{
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.footer-links a:hover{ color: var(--red); }
+.lightbox{
+  position: fixed;
+  inset: 0;
+  background: rgba(27,27,27,0.92);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+.lightbox.is-open{ display: flex; }
+.lightbox-close{
+  position: absolute;
+  top: 24px; right: 32px;
+  background: none;
+  border: none;
+  color: var(--card);
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox-content{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  max-width: 1000px;
+  width: 100%;
+  align-items: center;
+}
+.lightbox-visual{
+  aspect-ratio: 4/5;
+  border: 10px solid var(--card);
+  outline: 1px solid var(--brass);
+  outline-offset: -4px;
+  max-height: 74vh;
+}
+.lightbox-info{ color: var(--wall); }
+.lightbox-info h3{
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 32px;
+  margin: 0 0 8px;
+}
+.lightbox-artist{
+  color: var(--brass);
+  font-size: 15px;
+  margin: 0 0 4px;
+}
+.lightbox-meta{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(250,248,243,0.6);
+  margin: 0 0 20px;
+}
+.lightbox-desc{
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: rgba(250,248,243,0.85);
+  max-width: 44ch;
+}
+@media (max-width: 980px){
+  .hero{ grid-template-columns: 1fr; padding-top: 120px; }
+  .hero-frame{ justify-self: start; }
+  .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+  .artist-row{ grid-template-columns: repeat(2, 1fr); }
+  .contact-grid{ grid-template-columns: 1fr; }
+  .lightbox-content{ grid-template-columns: 1fr; }
+  .lightbox-visual{ max-height: 46vh; }
+}
+
+@media (max-width: 640px){
+  .main-nav{
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: var(--wall);
+    flex-direction: column;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+    border-bottom: 1px solid var(--line);
+  }
+  .main-nav.open{ max-height: 260px; }
+  .main-nav a{
+    padding: 16px 32px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .nav-toggle{ display: flex; }
+  .gallery-grid{ grid-template-columns: 1fr 1fr; gap: 20px 14px; }
+  .artist-row{ grid-template-columns: 1fr; }
+  .hero{ padding-left: 20px; padding-right: 20px; }
+  .section-inner{ padding: 0 20px; }
+}
+
+@media (max-width: 420px){
+  .gallery-grid{ grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">V</span>
+      <span class="logo-text">Vernis</span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#gallery">Gallery</a>
+      <a href="#artists">Artists</a>
+      <a href="#categories">Categories</a>
+      <a href="#contact">Visit</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">No. 001 &nbsp;/&nbsp; Est. 2024 &nbsp;/&nbsp; Chennai</p>
+    <h1 class="hero-title">Where paint<br>still breathes.</h1>
+    <p class="hero-sub">A small gallery for work that refuses to sit quietly — painting, sculpture, photography and everything that won't be filed neatly between them.</p>
+    <div class="hero-actions">
+      <a href="#gallery" class="btn btn-primary">Walk the gallery</a>
+      <a href="#artists" class="btn btn-ghost">Meet the artists</a>
+    </div>
+  </div>
+
+  <div class="hero-frame" aria-hidden="true">
+    <div class="frame-art frame-art-1"></div>
+    <span class="frame-plaque">Study in Ochre · Mixed media · 2024</span>
+  </div>
+</section>
+
+<section class="categories" id="categories">
+  <div class="section-inner">
+    <p class="section-kicker">Browse by medium</p>
+    <div class="cat-row" id="catRow">
+      <button class="cat-pill active" data-filter="all">All Work</button>
+      <button class="cat-pill" data-filter="painting">Painting</button>
+      <button class="cat-pill" data-filter="sculpture">Sculpture</button>
+      <button class="cat-pill" data-filter="photography">Photography</button>
+      <button class="cat-pill" data-filter="digital">Digital</button>
+      <button class="cat-pill" data-filter="mixed">Mixed Media</button>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2 class="section-title">Current Collection</h2>
+      <p class="section-note">Click any piece to view it larger.</p>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <article class="art-card" data-category="painting">
+        <button class="art-visual art-1" data-title="Ochre Interior" data-artist="Meera Krishnan" data-meta="Oil on canvas, 2024" data-desc="A quiet domestic scene rendered in warm ochre and rust, the light falling unevenly across an empty chair."></button>
+        <div class="art-label">
+          <div class="art-label-top">
+            <span class="art-no">NO. 014</span>
+            <span class="status-dot sold" title="Sold"></span>
+          </div>
+          <h3 class="art-title">Ochre Interior</h3>
+          <p class="art-artist">Meera Krishnan</p>
+          <p class="art-meta">Oil on canvas · 2024</p>
+        </div>
+      </article>
+
+      <article class="art-card" data-category="sculpture">
+        <button class="art-visual art-2" data-title="Bronze Continuum" data-artist="Arvind Rao" data-meta="Welded bronze, 2023" data-desc="Three interlocking forms in cast bronze, exploring how weight can still suggest motion."></button>
+        <div class="art-label">
+          <div class="art-label-top">
+            <span class="art-no">NO. 027</span>
+            <span class="status-dot available" title="Available"></span>
+          </div>
+          <h3 class="art-title">Bronze Continuum</h3>
+          <p class="art-artist">Arvind Rao</p>
+          <p class="art-meta">Welded bronze · 2023</p>
+        </div>
+      </article>
+
+      <article class="art-card" data-category="photography">
+        <button class="art-visual art-3" data-title="Monsoon Line" data-artist="Priya Nair" data-meta="Silver gelatin print, 2022" data-desc="A single fishing boat cuts across a flat grey monsoon horizon, shot on expired film."></button>
+        <div class="art-label">
+          <div class="art-label-top">
+            <span class="art-no">NO. 003</span>
+            <span class="status-dot available" title="Available"></span>
+          </div>
+          <h3 class="art-title">Monsoon Line</h3>
+          <p class="art-artist">Priya Nair</p>
+          <p class="art-meta">Silver gelatin print · 2022</p>
+        </div>
+      </article>
+
+      <article class="art-card" data-category="digital">
+        <button class="art-visual art-4" data-title="Static Bloom" data-artist="Devika Iyer" data-meta="Generative print, 2024" data-desc="An algorithm trained on wildflower photographs, allowed to hallucinate its own bouquet."></button>
+        <div class="art-label">
+          <div class="art-label-top">
+            <span class="art-no">NO. 041</span>
+            <span class="status-dot sold" title="Sold"></span>
+          </div>
+          <h3 class="art-title">Static Bloom</h3>
+          <p class="art-artist">Devika Iyer</p>
+          <p class="art-meta">Generative print · 2024</p>
+        </div>
+      </article>
+
+      <article class="art-card" data-category="mixed">
+        <button class="art-visual art-5" data-title="Marginalia" data-artist="Kabir Sen" data-meta="Ink, thread & paper, 2023" data-desc="Torn ledger pages restitched with red thread, the accountant's arithmetic still visible beneath."></button>
+        <div class="art-label">
+          <div class="art-label-top">
+            <span class="art-no">NO. 019</span>
+            <span class="status-dot available" title="Available"></span>
+          </div>
+          <h3 class="art-title">Marginalia</h3>
+          <p class="art-artist">Kabir Sen</p>
+          <p class="art-meta">Ink, thread & paper · 2023</p>
+        </div>
+      </article>
+
+      <article class="art-card" data-category="painting">
+        <button class="art-visual art-6" data-title="Night Swimmer" data-artist="Meera Krishnan" data-meta="Acrylic on panel, 2024" data-desc="A lone figure suspended mid-stroke in deep ultramarine water, lit only from below."></button>
+        <div class="art-label">
+          <div class="art-label-top">
+            <span class="art-no">NO. 052</span>
+            <span class="status-dot available" title="Available"></span>
+          </div>
+          <h3 class="art-title">Night Swimmer</h3>
+          <p class="art-artist">Meera Krishnan</p>
+          <p class="art-meta">Acrylic on panel · 2024</p>
+        </div>
+      </article>
+
+      <article class="art-card" data-category="sculpture">
+        <button class="art-visual art-7" data-title="Terracotta Chorus" data-artist="Arvind Rao" data-meta="Fired clay, 2022" data-desc="Nine small terracotta heads arranged in a row, no two expressions the same."></button>
+        <div class="art-label">
+          <div class="art-label-top">
+            <span class="art-no">NO. 008</span>
+            <span class="status-dot sold" title="Sold"></span>
+          </div>
+          <h3 class="art-title">Terracotta Chorus</h3>
+          <p class="art-artist">Arvind Rao</p>
+          <p class="art-meta">Fired clay · 2022</p>
+        </div>
+      </article>
+
+      <article class="art-card" data-category="photography">
+        <button class="art-visual art-8" data-title="Platform Nine" data-artist="Priya Nair" data-meta="Digital print, 2024" data-desc="Commuters frozen mid-stride on a Chennai railway platform at first light."></button>
+        <div class="art-label">
+          <div class="art-label-top">
+            <span class="art-no">NO. 036</span>
+            <span class="status-dot available" title="Available"></span>
+          </div>
+          <h3 class="art-title">Platform Nine</h3>
+          <p class="art-artist">Priya Nair</p>
+          <p class="art-meta">Digital print · 2024</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="artists" id="artists">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2 class="section-title">The Artists</h2>
+      <p class="section-note">Four practices, one wall.</p>
+    </div>
+
+    <div class="artist-row">
+
+      <article class="artist-card">
+        <div class="artist-portrait portrait-1">MK</div>
+        <h3 class="artist-name">Meera Krishnan</h3>
+        <p class="artist-role">Painter · Chennai</p>
+        <p class="artist-bio">Works in oil and acrylic, circling the same three rooms in her grandmother's house until they stop being rooms and start being feelings.</p>
+        <span class="artist-tag">12 works exhibited</span>
+      </article>
+
+      <article class="artist-card">
+        <div class="artist-portrait portrait-2">AR</div>
+        <h3 class="artist-name">Arvind Rao</h3>
+        <p class="artist-role">Sculptor · Mysuru</p>
+        <p class="artist-bio">Trained as a foundryman before he was a sculptor. His bronze and clay figures are cast from the same hands that used to cast machine parts.</p>
+        <span class="artist-tag">8 works exhibited</span>
+      </article>
+
+      <article class="artist-card">
+        <div class="artist-portrait portrait-3">PN</div>
+        <h3 class="artist-name">Priya Nair</h3>
+        <p class="artist-role">Photographer · Kochi</p>
+        <p class="artist-bio">Shoots almost exclusively on expired film, drawn to the way old stock softens a city that otherwise never stops moving.</p>
+        <span class="artist-tag">15 works exhibited</span>
+      </article>
+
+      <article class="artist-card">
+        <div class="artist-portrait portrait-4">DI</div>
+        <h3 class="artist-name">Devika Iyer</h3>
+        <p class="artist-role">Digital artist · Bengaluru</p>
+        <p class="artist-bio">Writes her own generative software, then spends months arguing with it until the output stops looking like software.</p>
+        <span class="artist-tag">6 works exhibited</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-inner contact-grid">
+
+    <div class="contact-info">
+      <p class="section-kicker">Visit the gallery</p>
+      <h2 class="section-title">Come stand<br>in front of it.</h2>
+      <p class="contact-copy">Photographs never quite get the surface right. Come see the work in the room it was made to hang in.</p>
+
+      <dl class="contact-details">
+        <div>
+          <dt>Address</dt>
+          <dd>14 Cathedral Road, Gopalapuram<br>Chennai, Tamil Nadu 600086</dd>
+        </div>
+        <div>
+          <dt>Hours</dt>
+          <dd>Tue – Sun, 11:00 – 19:00<br>Closed Mondays</dd>
+        </div>
+        <div>
+          <dt>Reach us</dt>
+          <dd>hello@vernisgallery.in<br>+91 44 2811 0192</dd>
+        </div>
+      </dl>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+      <div class="form-row">
+        <label for="fullName">Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Your full name" required>
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div class="form-row">
+        <label for="subject">I'm interested in</label>
+        <select id="subject" name="subject">
+          <option value="visiting">Planning a visit</option>
+          <option value="artwork">A specific artwork</option>
+          <option value="artist">Representing an artist</option>
+          <option value="press">Press &amp; media</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" placeholder="Tell us a little more..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Send message</button>
+      <p class="form-note" id="formNote" role="status"></p>
+    </form>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="section-inner footer-inner">
+    <div class="footer-brand">
+      <span class="logo-mark small">V</span>
+      <span class="logo-text">Vernis</span>
+    </div>
+    <p class="footer-copy">&copy; 2024 Vernis Gallery. All works remain the property of their respective artists.</p>
+    <div class="footer-links">
+      <a href="#gallery">Gallery</a>
+      <a href="#artists">Artists</a>
+      <a href="#contact">Visit</a>
+    </div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <div class="lightbox-content">
+    <div class="lightbox-visual" id="lightboxVisual"></div>
+    <div class="lightbox-info">
+      <h3 id="lightboxTitle"></h3>
+      <p class="lightbox-artist" id="lightboxArtist"></p>
+      <p class="lightbox-meta" id="lightboxMeta"></p>
+      <p class="lightbox-desc" id="lightboxDesc"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+
+ 
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => {
+    if (window.scrollY > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  document.addEventListener('scroll', onScroll);
+  onScroll();
+
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+  navToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  mainNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  
+  const catButtons = document.querySelectorAll('.cat-pill');
+  const artCards = document.querySelectorAll('.art-card');
+
+  catButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      artCards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('is-hidden', !match);
+      });
+    });
+  });
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxVisual = document.getElementById('lightboxVisual');
+  const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxArtist = document.getElementById('lightboxArtist');
+  const lightboxMeta = document.getElementById('lightboxMeta');
+  const lightboxDesc = document.getElementById('lightboxDesc');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  document.querySelectorAll('.art-visual').forEach(visual => {
+    visual.addEventListener('click', () => {
+      lightboxVisual.className = 'lightbox-visual ' +
+        [...visual.classList].find(c => c.startsWith('art-'));
+      lightboxTitle.textContent = visual.dataset.title || '';
+      lightboxArtist.textContent = visual.dataset.artist || '';
+      lightboxMeta.textContent = visual.dataset.meta || '';
+      lightboxDesc.textContent = visual.dataset.desc || '';
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      lightboxClose.focus();
+    });
+  });
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('is-open');
+    document.body.style.overflow = '';
+  };
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+  });
+
+  const form = document.getElementById('contactForm');
+  const formNote = document.getElementById('formNote');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formNote.textContent = 'Thank you — we\'ll be in touch shortly.';
+    form.reset();
+  });
+
+});
+
+</script>
+</body>
+</html>
