@@ -1,0 +1,346 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f7fa;
+    color: #1f2937;
+}
+.navbar {
+    background-color: #1e3a5f;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.navbar a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+.navbar a:hover {
+    color: #f4a259;
+}
+
+.page {
+    display: none;
+}
+.page.active {
+    display: block;
+}
+
+.hero {
+    background-color: #3b82c4;
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+}
+.hero h1 {
+    font-size: 36px;
+}
+.btn {
+    padding: 10px 20px;
+    background-color: #f4a259;
+    color: #1e3a5f;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px;
+}
+.card {
+    background-color: white;
+    border-top: 4px solid #f4a259;
+    border-radius: 8px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-box {
+    background-color: white;
+    width: 320px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    border-top: 5px solid #f4a259;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.form-box h2 {
+    text-align: center;
+    color: #1e3a5f;
+}
+.form-box label {
+    font-weight: bold;
+    color: #1e3a5f;
+}
+.form-box input {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0 16px 0;
+    border: 1px solid #dfe4ea;
+    border-radius: 5px;
+}
+.full-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-navy {
+    background-color: #1e3a5f;
+    color: white;
+}
+.btn-navy:hover {
+    background-color: #14263f;
+}
+.btn-gold {
+    background-color: #f4a259;
+    color: #1e3a5f;
+}
+.btn-gold:hover {
+    background-color: #e08a34;
+}
+#loginMsg, #registerMsg {
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.header {
+    background-color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dfe4ea;
+}
+.logout-btn {
+    background-color: #d64545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+.panel {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.panel h3 {
+    color: #1e3a5f;
+    border-bottom: 2px solid #f4a259;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+.student-form input {
+    padding: 8px;
+    margin: 5px 5px 5px 0;
+    border: 1px solid #dfe4ea;
+    border-radius: 5px;
+}
+.btn-del {
+    background-color: #d64545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+th {
+    background-color: #1e3a5f;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+td {
+    padding: 10px;
+    border-bottom: 1px solid #dfe4ea;
+}
+
+a, button, input, .card, .btn, .full-btn {
+    transition: all 0.2s ease-in-out;
+}
+input:focus {
+    outline: none;
+    border-color: #3b82c4;
+    box-shadow: 0 0 0 3px rgba(59, 130, 196, 0.2);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.btn:active, .full-btn:active, .btn-del:active {
+    transform: scale(0.97);
+}
+tbody tr:hover {
+    background-color: #f0f4f9;
+}
+
+.btn-del:hover {
+    background-color: #b83a3a;
+}
+
+select, input[type="file"] {
+    padding: 8px;
+    border: 1px solid #dfe4ea;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+.container, .features {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .navbar a {
+        margin-left: 0;
+        margin-right: 15px;
+    }
+    .hero h1 {
+        font-size: 26px;
+    }
+    .form-box {
+        width: 90%;
+        margin: 30px auto;
+    }
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+    th {
+        display: none; 
+    }
+    td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 12px;
+        border-bottom: 1px solid #eee;
+    }
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #1e3a5f;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 90%;
+    }
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 10px;
+}
+.course-card {
+    background-color: white;
+    border: 2px solid #dfe4ea;
+    border-radius: 8px;
+    padding: 18px;
+    text-align: center;
+    cursor: pointer;
+}
+.course-card:hover {
+    border-color: #3b82c4;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+.course-card.selected {
+    border-color: #f4a259;
+    background-color: #fff6ec;
+}
+.course-card .course-icon {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+.course-card h4 {
+    color: #1e3a5f;
+    margin-bottom: 4px;
+}
+.course-card p {
+    font-size: 13px;
+    color: #6b7280;
+}
+.enroll-btn {
+    margin-top: 16px;
+    padding: 10px 24px;
+    background-color: #1e3a5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.enroll-btn:hover {
+    background-color: #14263f;
+}
+.enroll-btn:disabled {
+    background-color: #a9b4c0;
+    cursor: not-allowed;
+}
+.enrolled-list {
+    list-style: none;
+    margin-top: 14px;
+}
+.enrolled-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f7fa;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #e4f6ec;
+    color: #2e9e5b;
+}
+#enrollMsg {
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: none;
+}
